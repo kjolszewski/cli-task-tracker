@@ -2,8 +2,8 @@
 import requests, argparse
 from datetime import datetime, date
 from display import show_tasks
-from storage import load_tasks, save_tasks, complete_task
-from tasks import add_task, delete_task
+from storage import load_tasks, save_tasks
+from tasks import add_task, delete_task, complete_task, search_task
 
 # validation
 def valid_date(value):
@@ -56,7 +56,7 @@ def main():
 
     # search
     search_parser = subparsers.add_parser("search")
-    search_parser.add_argument("query")
+    search_parser.add_argument("title", help="search for a task by its title")
     search_parser.set_defaults(func=search_task)
 
     # statistics
@@ -70,16 +70,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-"""
-class Dog:
-    def __init__(self, name):
-        self.name = name 
-
-    def bark(self):
-        print("Woof!")
-
-dog1 = Dog("Buddy")
-dog1.bark()
-"""

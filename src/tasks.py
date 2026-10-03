@@ -58,7 +58,14 @@ def complete_task(args):
     print("Task not found")
 
 def search_task(args):
-    print(f"Searching tasks...")
+    tasks = load_tasks()
+
+    for task in tasks:
+        if task["title"] == args.title:
+            print(f"Task has been found. It has a completion status of {task["completed"]}, a due date of {task["due_date"]} and a priority of {task["priority"]}.")
+        return 
+
+    print("No task found") 
 
 def display_tasks(args):
     print(f"Displaying tasks...")
