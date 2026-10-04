@@ -3,7 +3,7 @@ import requests, argparse
 from datetime import datetime, date
 from display import show_tasks
 from storage import load_tasks, save_tasks
-from tasks import add_task, delete_task, complete_task, search_task
+from tasks import add_task, delete_task, complete_task, search_task, list_tasks
 
 # validation
 def valid_date(value):
@@ -31,8 +31,8 @@ def main():
     add_parser.add_argument("title")
     add_parser.add_argument(
         "priority", 
-        type=str.lower,
-        choices=["low", "medium", "high"], 
+        type=str.capitalize,
+        choices=["Low", "Medium", "High"], 
         )
     add_parser.add_argument(
         "due_date",
@@ -46,12 +46,12 @@ def main():
 
     # complete
     complete_parser = subparsers.add_parser("complete")
-    complete_parser.add_argument("title", help="mark a task as complete through its title", type=int)
+    complete_parser.add_argument("id", help="mark a task as complete through its id", type=int)
     complete_parser.set_defaults(func=complete_task)
 
     # delete
     delete_parser = subparsers.add_parser("delete")
-    delete_parser.add_argument("title", help="delete a task through its title", type=int) 
+    delete_parser.add_argument("id", help="delete a task through its id", type=int) 
     delete_parser.set_defaults(func=delete_task)
 
     # search
@@ -61,7 +61,7 @@ def main():
 
     # statistics
     stats_parser = subparsers.add_parser("stats")
-    stats_parser.set_defaults(func=display_tasks)
+    # stats_parser.set_defaults(func=display_tasks)
 
     args = parser.parse_args()
     args.func(args)

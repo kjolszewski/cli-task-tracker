@@ -6,20 +6,20 @@ from display import show_tasks
 def add_task(args):
     tasks = load_tasks()
 
-    task = {
-        "id": max([task["id"] for task in tasks], default=0) + 1,
+    new_task = {
+        "id": len(tasks) + 1,
         "title": args.title,
         "priority": args.priority,
         "due_date": args.due_date,
         "completed": False
     }
 
-    for task in tasks:
-        if task["title"] == args.title and task["due_date"] == args.due_date:
+    for existing_task in tasks:
+        if new_task["title"] == existing_task["title"] and new_task["due_date"] == existing_task["title"]:
             print("A task of the same title and due date already exists")
             return 
 
-    tasks.append(task)
+    tasks.append(new_task)
     save_tasks(tasks)
 
     print("Task added")
@@ -28,7 +28,7 @@ def delete_task(args):
     tasks = load_tasks()
 
     for task in tasks:
-        if task["title"] == args.title:
+        if task["id"] == args.id:
             tasks.remove(task)
             save_tasks(tasks)
             print("Task deleted")
@@ -39,19 +39,15 @@ def delete_task(args):
 def list_tasks(args):
     tasks = load_tasks()
 
-    if not tasks:
-        print("No task found")
-        return 
-
-    for task in tasks:
-        show_tasks(task)
+    show_tasks(tasks)
 
 def complete_task(args):
     tasks = load_tasks()
 
     for task in tasks:
-        if task["title"] == args.title:
+        if task["id"] == args.id:
             task["completed"] = True
+            save_tasks(tasks)
             print("Task marked as complete")
             return 
 

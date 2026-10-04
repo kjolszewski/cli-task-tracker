@@ -2,7 +2,13 @@ from tabulate import tabulate
 
 def show_tasks(tasks):
     rows = [
-        [task.id, task.name, task.priority, task.date, task.status]
+        [
+            task["id"],
+            task["title"],
+            task["priority"],
+            task["due_date"],
+            "Complete" if task["completed"] else "Incomplete"
+        ]
         for task in tasks 
     ]
 
@@ -10,3 +16,5 @@ def show_tasks(tasks):
         rows,
         headers = ["ID", "Task", "Priority", "Due Date", "Status"]
     ))
+
+    

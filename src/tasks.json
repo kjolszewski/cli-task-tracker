@@ -2,8 +2,15 @@
     {
         "id": 1,
         "title": "Task1",
-        "priority": "medium",
-        "due_date": "1/10/2026",
+        "priority": "Low",
+        "due_date": "10/10/2026",
         "completed": false
+    },
+    {
+        "id": 2,
+        "title": "Task2",
+        "priority": "Low",
+        "due_date": "10/10/2026",
+        "completed": true
     }
 ]
