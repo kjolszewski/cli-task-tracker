@@ -3,7 +3,7 @@ import requests, argparse
 from datetime import datetime, date
 from display import show_tasks
 from storage import load_tasks, save_tasks
-from tasks import add_task, delete_task, complete_task, search_task, list_tasks
+from tasks import add_task, delete_task, complete_task, search_task, list_tasks, task_statistics, sort_tasks
 
 # validation
 def valid_date(value):
@@ -61,7 +61,11 @@ def main():
 
     # statistics
     stats_parser = subparsers.add_parser("stats")
-    # stats_parser.set_defaults(func=display_tasks)
+    stats_parser.set_defaults(func=task_statistics)
+
+    # sort
+    sort_parser = subparsers.add_parser("sort")
+    sort_parser.set_defaults(func=sort_tasks)
 
     args = parser.parse_args()
     args.func(args)

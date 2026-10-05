@@ -63,5 +63,43 @@ def search_task(args):
 
     print("No task found") 
 
-def display_tasks(args):
-    print(f"Displaying tasks...")
+def task_statistics(args):
+    tasks = load_tasks()
+
+    if not tasks:
+        print("No tasks available")
+        return 
+
+    total_tasks = len(tasks)
+    completed_tasks = sum(1 for task in tasks if task["completed"])
+    incomplete_tasks = total_tasks - completed_tasks
+
+    completion_rate = (completed_tasks / total_tasks) * 100
+
+    priority_count = {}
+
+    for task in tasks:
+        priority = task["priority"]
+
+        if priority in priority_count:
+            priority_count[priority] += 1
+        else:
+            priority_count[priority] = 1
+
+    print("Task Statistics")
+    print("----------------")
+    print(f"Total tasks: {total_tasks}")
+    print(f"Completed: {completed_tasks}")
+    print(f"Incomplete: {incomplete_tasks}")
+    print(f"Completion rate: {completion_rate:.1f}%")
+
+    print("\nTasks by priority:")
+    for priority, amount in priority_count.items():
+        print(f"{priority}: {amount}")
+
+
+
+def sort_tasks(args):
+    tasks = load_tasks()
+
+    tasks.sort(key=lambda task: task["due_date"])
