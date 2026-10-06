@@ -1,5 +1,5 @@
 # starts program, parses command, calls appropriate functionality and displays results
-import requests, argparse
+import argparse
 from datetime import datetime, date
 from display import show_tasks
 from storage import load_tasks, save_tasks
@@ -69,8 +69,6 @@ def main():
 
     args = parser.parse_args()
     args.func(args)
-
-# show_tasks(tasks)
 
 if __name__ == "__main__":
     main()
